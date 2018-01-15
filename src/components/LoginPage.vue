@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="login-page">
     {{msg}}
     <button id="signupButton" class="civic-button-a medium" type="button">
       <span>Log in with Civic</span>
@@ -9,13 +9,16 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'LoginPage',
   data () {
     return {
       msg: 'Simple Civic Signin'
     }
     },
     methods:{
+        sendAuthCode:function(){
+            this.$router.push('/dashboard');
+        },
         civicLoad:function(){
             var civicSip = new civic.sip({ appId: 'HySTIcFVf' });
             var button = document.querySelector('#signupButton');
@@ -38,7 +41,7 @@ export default {
                 var jwtToken = event.response;
 
                 // Your function to pass JWT token to your server
-                sendAuthCode(jwtToken);
+                this.sendAuthCode(jwtToken);
               });
 
               civicSip.on('user-cancelled', function (event) {
